@@ -1,3 +1,7 @@
+/**
+ * @author Tanya Kalianda
+ * Bank Account GUI
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +16,7 @@ public class BankAccountGUI  extends JFrame
 	public BankAccountGUI()
 	{
 		setTitle("Bank Account");
-		setBounds(100,100,600,600);
+		setBounds(100,100,500,400);
 		setLayout(null);
 		
 		JLabel name = new JLabel();
@@ -21,34 +25,73 @@ public class BankAccountGUI  extends JFrame
 		add(name);
 		
 		JTextField nameBox = new JTextField();
-		nameBox.setBounds(150, 50, 100, 50);
+		nameBox.setBounds(100, 50, 100, 50);
 		add(nameBox);
 		
 		JLabel accountType = new JLabel();
-		accountType.setBounds(50, 100, 100, 50);
+		accountType.setBounds(50, 110, 100, 50);
 		accountType.setText("Account Type: ");
 		add(accountType);
 		
-		String[] accounts = {"Checkings Account", "Savings Account"};     //creates an array and initializes values (or could do String[] accounts = new String[2];
-		JComboBox accountTypes = new JComboBox(accounts);
-		accountTypes.setBounds(150,100,150,50);
-		add(accountTypes);
+		String[] accounts = {"", "Checking Account", "Savings Account"};     //creates an array and initializes values (or could do String[] accounts = new String[2];
+		JComboBox accountTypeBox = new JComboBox(accounts);
+		accountTypeBox.setBounds(150,110,150,50);
+		add(accountTypeBox);
 		
 		JLabel balance = new JLabel();
-		balance.setBounds(220, 70, 100, 50);
+		balance.setBounds(50, 170, 100, 50);
 		balance.setText("Initial Balance: ");
 		add(balance);
 		
 		JTextField balanceBox = new JTextField();
-		balanceBox.setBounds(200, 150, 100, 50);
+		balanceBox.setBounds(150, 170, 100, 50);
 		add(balanceBox);
 		
 		JButton createAccount = new JButton();
+		createAccount.setBounds(50, 250, 150, 50);
+		createAccount.setText("Create Account");
+		createAccount.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				String selected = (String) accountTypeBox.getSelectedItem();
+				if (selected.equals("Checking Account"))
+				{
+					private static int nextAccNum;
+					private String name;
+					private int accNum;
+					private double balance;
+					
+					public CheckingAccount() 
+					{
+						name = nameBox.getText();
+						accNum = nextAccNum;
+						balance = (int) balanceBox.getText();
+						nextAccNum++;
+					}
+				}
+				else if (selected.equals("Savings Account"))
+				{
+					
+				}
+				else
+				{
+					//JLabel.setText("Invalid Input")
+				}
+			}
+		});
+		add(createAccount);
+		
+		JLabel label = new JLabel();
+		label.setBounds(300,250,100,50);
+		label.setText("Label");
+		add(label);
+		
+		
 		
 		setVisible(true);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-		
-		
+				
 	}
 	
 	
