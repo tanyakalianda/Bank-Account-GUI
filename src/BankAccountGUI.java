@@ -4,6 +4,7 @@
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,8 +14,18 @@ import javax.swing.JTextField;
 
 public class BankAccountGUI  extends JFrame
 {
+	ArrayList<BankAccount> bankAccounts;
+	final double OVER_DRAFT_FEE = 15;
+	final double RATE = 0.0025;
+	final double TRANSACTION_FEE = 1.5;
+	final double MIN_BAL = 300;
+	final double MIN_BAL_FEE = 10;
+	final int FREE_TRANSACTIONS = 10;
+	int accNum = -1;
+	
 	public BankAccountGUI()
 	{
+		bankAccounts = new ArrayList<BankAccount>();
 		setTitle("Bank Account");
 		setBounds(100,100,500,400);
 		setLayout(null);
@@ -33,7 +44,7 @@ public class BankAccountGUI  extends JFrame
 		accountType.setText("Account Type: ");
 		add(accountType);
 		
-		String[] accounts = {"", "Checking Account", "Savings Account"};     //creates an array and initializes values (or could do String[] accounts = new String[2];
+		String[] accounts = {"", "Checking Account", "Savings Account"};     
 		JComboBox accountTypeBox = new JComboBox(accounts);
 		accountTypeBox.setBounds(150,110,150,50);
 		add(accountTypeBox);
@@ -55,37 +66,42 @@ public class BankAccountGUI  extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				String selected = (String) accountTypeBox.getSelectedItem();
+				String nameAccount = nameBox.getText();
+				Double balanceAccount = Double.parseDouble(balanceBox.getText());
+				
 				if (selected.equals("Checking Account"))
 				{
-					private static int nextAccNum;
-					private String name;
-					private int accNum;
-					private double balance;
-					
-					public CheckingAccount() 
-					{
-						name = nameBox.getText();
-						accNum = nextAccNum;
-						balance = (int) balanceBox.getText();
-						nextAccNum++;
-					}
+					bankAccounts.add(new CheckingAccount(nameAccount, balanceAccount, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
+					createAccount.setText("Account Created");
 				}
 				else if (selected.equals("Savings Account"))
 				{
-					
+					bankAccounts.add(new SavingsAccount(nameAccount, balanceAccount, RATE, MIN_BAL, MIN_BAL_FEE));
+					createAccount.setText("Account Created");
 				}
 				else
 				{
-					//JLabel.setText("Invalid Input")
+					createAccount.setText("Error - invalid input");
 				}
 			}
 		});
 		add(createAccount);
 		
-		JLabel label = new JLabel();
-		label.setBounds(300,250,100,50);
-		label.setText("Label");
-		add(label);
+		
+		JButton displayAccount = new JButton();
+		displayAccount.setBounds(300,250,150,50);
+		displayAccount.setText("Display Accounts");
+		displayAccount.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.print("Your Accounts: " + bankAccounts.toString());
+				displayAccount.setText("Account Displayed");
+				balanceBox.setText("");
+				nameBox.setText("");
+			}
+		});
+		add(displayAccount);
 		
 		
 		
