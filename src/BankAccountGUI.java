@@ -95,7 +95,10 @@ public class BankAccountGUI  extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.print("Your Accounts: " + bankAccounts.toString());
+				for (BankAccount acc: bankAccounts)
+				{
+					System.out.println(acc.toString());
+				}
 				displayAccount.setText("Account Displayed");
 				balanceBox.setText("");
 				nameBox.setText("");
@@ -103,13 +106,9 @@ public class BankAccountGUI  extends JFrame
 		});
 		add(displayAccount);
 		
-		
-		
 		setVisible(true);
-		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-				
+		setDefaultCloseOperation(this.EXIT_ON_CLOSE);		
 	}
-	
 	
 	public static void main(String[] args)
 	{
